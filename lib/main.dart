@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDarkTheme = context.watch<SettingViewModel>().state;
     return MaterialApp.router(
-      title: 'Counter Cubit',
+      title: 'IBGE Census',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(
         useMaterial3: true,
