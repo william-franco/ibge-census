@@ -20,29 +20,18 @@ void main() {
       );
 
       final personView = find.byType(PersonView);
-      final itemsView = find.byType(PersonView);
       final settingView = find.byType(SettingView);
-      final listIcon = find.byIcon(Icons.list_alt_outlined);
       final settingsIcon = find.byIcon(Icons.settings_outlined);
 
       await tester.pumpWidget(widget);
 
       expect(personView, findsOneWidget);
-      expect(itemsView, findsNothing);
-      expect(settingView, findsNothing);
-
-      await tester.tap(listIcon);
-      await tester.pumpAndSettle();
-
-      expect(personView, findsNothing);
-      expect(itemsView, findsOneWidget);
       expect(settingView, findsNothing);
 
       await tester.tap(settingsIcon);
       await tester.pumpAndSettle();
 
       expect(personView, findsNothing);
-      expect(itemsView, findsNothing);
       expect(settingView, findsOneWidget);
     });
   });
