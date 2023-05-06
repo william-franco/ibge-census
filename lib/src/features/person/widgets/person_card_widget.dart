@@ -1,5 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:go_router/go_router.dart';
+
+// Project imports:
 import 'package:ibge_census/src/features/person/models/person_model.dart';
 import 'package:ibge_census/src/routes/routes.dart';
 

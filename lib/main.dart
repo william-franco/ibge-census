@@ -1,5 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+// Project imports:
 import 'package:ibge_census/src/dependency_injector/dependency_injector.dart';
 import 'package:ibge_census/src/features/settings/view_models/setting_cubit.dart';
 import 'package:ibge_census/src/routes/routes.dart';

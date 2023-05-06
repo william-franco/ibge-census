@@ -1,6 +1,10 @@
+// Dart imports:
 import 'dart:developer';
 
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+// Project imports:
 import 'package:ibge_census/src/features/settings/repositories/setting_repository.dart';
 
 class SettingViewModel extends Cubit<bool> {

@@ -1,5 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+// Project imports:
 import 'package:ibge_census/src/common_widgets/common_padding.dart';
 import 'package:ibge_census/src/common_widgets/common_responsive_list_or_grid_view_builder.dart';
 import 'package:ibge_census/src/features/person/models/person_model.dart';

@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:ibge_census/src/features/settings/widgets/info_list_tile_widget.dart';
 import 'package:ibge_census/src/features/settings/widgets/theme_list_tile_widget.dart';
 

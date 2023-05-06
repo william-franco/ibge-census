@@ -1,5 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+// Project imports:
 import 'package:ibge_census/src/features/bottom/view_models/bottom_view_model.dart';
 import 'package:ibge_census/src/features/person/views/person_view.dart';
 import 'package:ibge_census/src/features/settings/views/setting_view.dart';
