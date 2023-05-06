@@ -10,22 +10,6 @@ class PersonRepository {
     required this.httpService,
   });
 
-  Future<PersonModel> readPerson(String id) async {
-    final response = await httpService.getData(
-      path: '${Environments.baseURL}${Environments.nomes}/$id',
-    );
-    try {
-      if (response.statusCode == 200) {
-        final success = PersonModel.fromJson(response.data);
-        return success;
-      } else {
-        throw Exception('Failed to load person. ${response.statusMessage}');
-      }
-    } catch (error) {
-      throw Exception(error);
-    }
-  }
-
   Future<List<PersonModel>> readPersons() async {
     final response = await httpService.getData(
       path: '${Environments.baseURL}${Environments.nomes}',
