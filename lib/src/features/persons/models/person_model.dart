@@ -1,11 +1,14 @@
-class PersonModel {
-  String? nome;
-  int? regiao;
-  int? freq;
-  int? rank;
-  String? sexo;
+// Package imports:
+import 'package:equatable/equatable.dart';
 
-  PersonModel({
+class PersonModel extends Equatable {
+  final String? nome;
+  final int? regiao;
+  final int? freq;
+  final int? rank;
+  final String? sexo;
+
+  const PersonModel({
     this.nome,
     this.regiao,
     this.freq,
@@ -13,12 +16,14 @@ class PersonModel {
     this.sexo,
   });
 
-  PersonModel.fromJson(Map<String, dynamic> json) {
-    nome = json['nome'];
-    regiao = json['regiao'];
-    freq = json['freq'];
-    rank = json['rank'];
-    sexo = json['sexo'];
+  factory PersonModel.fromJson(Map<String, dynamic> json) {
+    return PersonModel(
+      nome: json['nome'] as String?,
+      regiao: json['regiao'] as int?,
+      freq: json['freq'] as int?,
+      rank: json['rank'] as int?,
+      sexo: json['sexo'] as String?,
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -30,4 +35,13 @@ class PersonModel {
     data['sexo'] = sexo;
     return data;
   }
+
+  @override
+  List<Object?> get props => [
+        nome,
+        regiao,
+        freq,
+        rank,
+        sexo,
+      ];
 }
