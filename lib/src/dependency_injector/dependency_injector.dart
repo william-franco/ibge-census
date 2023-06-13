@@ -2,14 +2,14 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 // Project imports:
 import 'package:ibge_census/src/features/bottom/view_models/bottom_view_model.dart';
-import 'package:ibge_census/src/features/person/repositories/person_repository.dart';
-import 'package:ibge_census/src/features/person/view_models/person_view_model.dart';
+import 'package:ibge_census/src/features/persons/repositories/person_repository.dart';
+import 'package:ibge_census/src/features/persons/view_models/person_view_model.dart';
 import 'package:ibge_census/src/features/settings/repositories/setting_repository.dart';
-import 'package:ibge_census/src/features/settings/view_models/setting_cubit.dart';
+import 'package:ibge_census/src/features/settings/view_models/setting_view_model.dart';
 import 'package:ibge_census/src/services/http_service.dart';
 import 'package:ibge_census/src/services/storage_service.dart';
 
@@ -23,46 +23,42 @@ class DependencyInjector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiRepositoryProvider(
+    return MultiProvider(
       providers: [
         // Services
-        RepositoryProvider(
-          create: (context) => HttpService(),
+        Provider<HttpService>(
+          create: (context) => HttpServiceImpl(),
         ),
-        RepositoryProvider(
-          create: (context) => StorageService(),
+        Provider<StorageService>(
+          create: (context) => StorageServiceImpl(),
         ),
         // Repositories
-        RepositoryProvider(
-          create: (context) => PersonRepository(
+        Provider<PersonRepository>(
+          create: (context) => PersonRepositoryImpl(
             httpService: context.read<HttpService>(),
           ),
         ),
-        RepositoryProvider(
-          create: (context) => SettingRepository(
+        Provider<SettingRepository>(
+          create: (context) => SettingRepositoryImpl(
             storageService: context.read<StorageService>(),
           ),
         ),
+        // ViewModels
+        ChangeNotifierProvider<BottomViewModel>(
+          create: (context) => BottomViewModelImpl(),
+        ),
+        ChangeNotifierProvider<PersonViewModel>(
+          create: (context) => PersonViewModelImpl(
+            personRepository: context.read<PersonRepository>(),
+          ),
+        ),
+        ChangeNotifierProvider<SettingViewModel>(
+          create: (context) => SettingViewModelImpl(
+            settingRepository: context.read<SettingRepository>(),
+          ),
+        ),
       ],
-      child: MultiBlocProvider(
-        providers: [
-          // ViewModels
-          BlocProvider(
-            create: (context) => BottomViewModel(),
-          ),
-          BlocProvider(
-            create: (context) => PersonViewModel(
-              personRepository: context.read<PersonRepository>(),
-            ),
-          ),
-          BlocProvider(
-            create: (context) => SettingViewModel(
-              settingRepository: context.read<SettingRepository>(),
-            ),
-          ),
-        ],
-        child: child,
-      ),
+      child: child,
     );
   }
 }

@@ -1,27 +1,26 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
-import 'package:go_router/go_router.dart';
-
 // Project imports:
-import 'package:ibge_census/src/features/person/models/person_model.dart';
-import 'package:ibge_census/src/routes/routes.dart';
+import 'package:ibge_census/src/features/persons/models/person_model.dart';
 
 class PersonCardWidget extends StatelessWidget {
   final bool isListView;
   final PersonModel person;
+  final void Function()? onTap;
 
   const PersonCardWidget({
     super.key,
     required this.isListView,
     required this.person,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: InkWell(
+        onTap: onTap,
         child: isListView
             ? ListTile(
                 title: Text(
@@ -46,9 +45,6 @@ class PersonCardWidget extends StatelessWidget {
                   ),
                 ],
               ),
-        onTap: () {
-          context.push(Routes.personDetail, extra: person);
-        },
       ),
     );
   }

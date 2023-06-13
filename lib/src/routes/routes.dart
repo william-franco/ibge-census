@@ -6,9 +6,9 @@ import 'package:go_router/go_router.dart';
 
 // Project imports:
 import 'package:ibge_census/src/features/bottom/views/bottom_view.dart';
-import 'package:ibge_census/src/features/person/models/person_model.dart';
-import 'package:ibge_census/src/features/person/views/person_detail_view.dart';
-import 'package:ibge_census/src/features/person/views/person_view.dart';
+import 'package:ibge_census/src/features/persons/models/person_model.dart';
+import 'package:ibge_census/src/features/persons/views/person_detail_view.dart';
+import 'package:ibge_census/src/features/persons/views/person_view.dart';
 
 final routesApp = Routes();
 

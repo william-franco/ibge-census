@@ -1,18 +1,26 @@
 // Dart imports:
 import 'dart:developer';
 
-// Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
+// Flutter imports:
+import 'package:flutter/material.dart';
 
-class BottomViewModel extends Cubit<int> {
+abstract base class BottomViewModel extends ValueNotifier<int> {
   BottomViewModel() : super(0);
 
+  void changeIndexBottom(int index);
+}
+
+base class BottomViewModelImpl extends ValueNotifier<int>
+    implements BottomViewModel {
+  BottomViewModelImpl() : super(0);
+
+  @override
   void changeIndexBottom(int index) {
-    emit(index);
+    value = index;
     _debug();
   }
 
   void _debug() {
-    log('Current tab: $state');
+    log('Current tab: $value');
   }
 }

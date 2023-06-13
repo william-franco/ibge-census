@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 
 // Project imports:
 import 'package:ibge_census/src/common_widgets/common_padding.dart';
-import 'package:ibge_census/src/features/person/models/person_model.dart';
+import 'package:ibge_census/src/features/persons/models/person_model.dart';
 
 class PersonDetailView extends StatelessWidget {
   final PersonModel person;

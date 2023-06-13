@@ -2,11 +2,11 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 // Project imports:
 import 'package:ibge_census/src/features/bottom/view_models/bottom_view_model.dart';
-import 'package:ibge_census/src/features/person/views/person_view.dart';
+import 'package:ibge_census/src/features/persons/views/person_view.dart';
 import 'package:ibge_census/src/features/settings/views/setting_view.dart';
 
 class BottomView extends StatefulWidget {
@@ -24,7 +24,7 @@ class _BottomViewState extends State<BottomView> {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<BottomViewModel>().state;
+    final state = context.watch<BottomViewModel>().value;
     return Scaffold(
       body: listOfWidgets.elementAt(state),
       bottomNavigationBar: NavigationBar(

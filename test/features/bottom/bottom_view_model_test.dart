@@ -1,5 +1,4 @@
 // Package imports:
-import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // Project imports:
@@ -7,28 +6,19 @@ import 'package:ibge_census/src/features/bottom/view_models/bottom_view_model.da
 
 void main() {
   group('BottomViewModel', () {
-    late BottomViewModel bottomViewModel;
+    late BottomViewModel viewModel;
 
     setUp(() {
-      bottomViewModel = BottomViewModel();
+      viewModel = BottomViewModelImpl();
     });
 
-    test('initial state is 0', () {
-      expect(bottomViewModel.state, equals(0));
+    test('initial value is 0', () {
+      expect(viewModel.value, 0);
     });
 
-    blocTest<BottomViewModel, int>(
-      'emits [1] when changeIndexBottom is called with 1',
-      build: () => bottomViewModel,
-      act: (viewModel) => viewModel.changeIndexBottom(1),
-      expect: () => [1],
-    );
-
-    blocTest<BottomViewModel, int>(
-      'emits [2] when changeIndexBottom is called with 2',
-      build: () => bottomViewModel,
-      act: (viewModel) => viewModel.changeIndexBottom(2),
-      expect: () => [2],
-    );
+    test('change index', () {
+      viewModel.changeIndexBottom(1);
+      expect(viewModel.value, 1);
+    });
   });
 }
