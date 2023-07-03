@@ -1,11 +1,12 @@
 // Project imports:
 import 'package:ibge_census/src/environments/environments.dart';
+import 'package:ibge_census/src/exception_handling/exception_handling.dart';
 import 'package:ibge_census/src/features/persons/models/person_model.dart';
 import 'package:ibge_census/src/services/http_service.dart';
 
 abstract interface class PersonRepository {
-  Future<PersonModel> readPerson(String name);
-  Future<List<PersonModel>> readPersons();
+  Future<Result<PersonModel, Exception>> readPerson(String name);
+  Future<Result<List<PersonModel>, Exception>> readPersons();
 }
 
 class PersonRepositoryImpl implements PersonRepository {
@@ -16,38 +17,40 @@ class PersonRepositoryImpl implements PersonRepository {
   });
 
   @override
-  Future<PersonModel> readPerson(String name) async {
-    final response = await httpService.getData(
-      path: '${Environments.baseURL}${Environments.nomes}$name',
-    );
+  Future<Result<PersonModel, Exception>> readPerson(String name) async {
     try {
-      if (response.statusCode == 200) {
-        final success = PersonModel.fromJson(response.data[0]);
-        return success;
-      } else {
-        throw Exception('Failed to load persons. ${response.statusMessage}');
+      final response = await httpService.getData(
+        path: '${Environments.baseURL}${Environments.nomes}$name',
+      );
+      switch (response.statusCode) {
+        case 200:
+          final success = PersonModel.fromJson(response.data);
+          return Success(value: success);
+        default:
+          return Failure(exception: Exception(response.statusMessage));
       }
-    } catch (error) {
-      throw Exception(error);
+    } on Exception catch (error) {
+      return Failure(exception: error);
     }
   }
 
   @override
-  Future<List<PersonModel>> readPersons() async {
-    final response = await httpService.getData(
-      path: '${Environments.baseURL}${Environments.nomes}',
-    );
+  Future<Result<List<PersonModel>, Exception>> readPersons() async {
     try {
-      if (response.statusCode == 200) {
-        final success = (response.data as List)
-            .map((e) => PersonModel.fromJson(e))
-            .toList();
-        return success;
-      } else {
-        throw Exception('Failed to load persons. ${response.statusMessage}');
+      final response = await httpService.getData(
+        path: '${Environments.baseURL}${Environments.nomes}',
+      );
+      switch (response.statusCode) {
+        case 200:
+          final success = (response.data as List)
+              .map((e) => PersonModel.fromJson(e))
+              .toList();
+          return Success(value: success);
+        default:
+          return Failure(exception: Exception(response.statusMessage));
       }
-    } catch (error) {
-      throw Exception(error);
+    } on Exception catch (error) {
+      return Failure(exception: error);
     }
   }
 }

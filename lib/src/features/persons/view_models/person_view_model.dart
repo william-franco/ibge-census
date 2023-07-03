@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 // Project imports:
+import 'package:ibge_census/src/exception_handling/exception_handling.dart';
 import 'package:ibge_census/src/features/persons/repositories/person_repository.dart';
 import 'package:ibge_census/src/features/persons/state/person_state.dart';
 
@@ -25,8 +26,13 @@ base class PersonViewModelImpl extends ValueNotifier<PersonState>
   @override
   Future<void> loadPersons() async {
     value = PersonLoading();
-    final persons = await personRepository.readPersons();
-    value = PersonSuccess(persons: persons);
+    final result = await personRepository.readPersons();
+    final persons = switch (result) {
+      Success(value: final persons) => PersonSuccess(persons: persons),
+      Failure(exception: final exception) =>
+        PersonFailure(message: 'Something went wrong: $exception'),
+    };
+    value = persons;
     _debug();
   }
 
