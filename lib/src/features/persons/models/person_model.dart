@@ -1,7 +1,4 @@
-// Package imports:
-import 'package:equatable/equatable.dart';
-
-class PersonModel extends Equatable {
+class PersonModel {
   final String? nome;
   final int? regiao;
   final int? freq;
@@ -36,12 +33,40 @@ class PersonModel extends Equatable {
     return data;
   }
 
+  PersonModel copyWith({
+    String? nome,
+    int? regiao,
+    int? freq,
+    int? rank,
+    String? sexo,
+  }) {
+    return PersonModel(
+      nome: nome ?? this.nome,
+      regiao: regiao ?? this.regiao,
+      freq: freq ?? this.freq,
+      rank: rank ?? this.rank,
+      sexo: sexo ?? this.sexo,
+    );
+  }
+
   @override
-  List<Object?> get props => [
-        nome,
-        regiao,
-        freq,
-        rank,
-        sexo,
-      ];
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is PersonModel &&
+        other.nome == nome &&
+        other.regiao == regiao &&
+        other.freq == freq &&
+        other.rank == rank &&
+        other.sexo == sexo;
+  }
+
+  @override
+  int get hashCode {
+    return nome.hashCode ^
+        regiao.hashCode ^
+        freq.hashCode ^
+        rank.hashCode ^
+        sexo.hashCode;
+  }
 }

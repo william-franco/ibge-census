@@ -6,10 +6,12 @@ import 'package:provider/provider.dart';
 
 // Project imports:
 import 'package:ibge_census/src/dependency_injector/dependency_injector.dart';
+import 'package:ibge_census/src/dependency_injector/locator_injector.dart';
 import 'package:ibge_census/src/features/settings/view_models/setting_view_model.dart';
 import 'package:ibge_census/src/routes/routes.dart';
 
 void main() {
+  locatorInjector();
   runApp(
     const DependencyInjector(
       child: MyApp(),
