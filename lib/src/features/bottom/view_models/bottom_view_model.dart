@@ -4,23 +4,26 @@ import 'dart:developer';
 // Flutter imports:
 import 'package:flutter/material.dart';
 
-abstract base class BottomViewModel extends ValueNotifier<int> {
-  BottomViewModel() : super(0);
+// Project imports:
+import 'package:ibge_census/src/features/bottom/models/bottom_model.dart';
 
-  void changeIndexBottom(int index);
+abstract base class BottomViewModel extends ValueNotifier<BottomModel> {
+  BottomViewModel() : super(BottomModel());
+
+  void changeIndexBottom({required int index});
 }
 
-base class BottomViewModelImpl extends ValueNotifier<int>
+base class BottomViewModelImpl extends ValueNotifier<BottomModel>
     implements BottomViewModel {
-  BottomViewModelImpl() : super(0);
+  BottomViewModelImpl() : super(BottomModel());
 
   @override
-  void changeIndexBottom(int index) {
-    value = index;
+  void changeIndexBottom({required int index}) {
+    value.indexTab = index;
     _debug();
   }
 
   void _debug() {
-    log('Current tab: $value');
+    log('Current tab: ${value.indexTab}');
   }
 }

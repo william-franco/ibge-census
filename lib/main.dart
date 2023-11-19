@@ -6,12 +6,10 @@ import 'package:provider/provider.dart';
 
 // Project imports:
 import 'package:ibge_census/src/dependency_injector/dependency_injector.dart';
-import 'package:ibge_census/src/dependency_injector/locator_injector.dart';
 import 'package:ibge_census/src/features/settings/view_models/setting_view_model.dart';
 import 'package:ibge_census/src/routes/routes.dart';
 
 void main() {
-  locatorInjector();
   runApp(
     const DependencyInjector(
       child: MyApp(),
@@ -25,7 +23,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final isDarkTheme = context.watch<SettingViewModel>().value;
+    final viewModel = context.watch<SettingViewModel>();
     return MaterialApp.router(
       title: 'IBGE Census',
       debugShowCheckedModeBanner: false,
@@ -35,7 +33,7 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData.dark(
         useMaterial3: true,
       ),
-      themeMode: isDarkTheme ? ThemeMode.dark : ThemeMode.light,
+      themeMode: viewModel.value.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
       routerConfig: routesApp.routes,
     );
   }
